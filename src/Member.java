@@ -13,6 +13,8 @@ public class Member {
     private LocalDate dateOfBirth;
     private LocalDate dateOfDeath;
 
+    private static final String NO = "нет";
+
     public Member(String name, String surname, Sex sex, LocalDate birth, LocalDate death, Member child,
                    Member father, Member mother) {
         id = -1;
@@ -66,21 +68,32 @@ public class Member {
 
     //возраст
     public Integer getAge(LocalDate dateOfBirth, LocalDate dateOfDeath) {
-        Period between = Period.between(dateOfBirth, dateOfDeath);
+        Period between;
+        if (dateOfDeath == null) {
+            between = Period.between(dateOfBirth, LocalDate.now());
+        } else {
+            between = Period.between(dateOfBirth, dateOfDeath);
+        }
         return between.getYears();
     }
 
-    @Override
-    public String toString(){
-        return "Member{" +
-                "name" + name +
-                ", surname"+ getSurname() +
-                ", sex" + getSex() +
-                ", dateOfBirth" + getDateOfBirth() +
-                ", dateOfDeath" + getDateOfDeath() +
-                ", parents = (" + getParents() + ")" +
-                ", children = (" + getChildren() + ")" +
-                "}";
+    public String getMemberInfo(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("id: ");
+        sb.append(getId());
+        sb.append(", имя: ");
+        sb.append(getName());
+        sb.append(", фамилия: ");
+        sb.append(getSurname());
+        sb.append(", пол: ");
+        sb.append(getSex());
+        sb.append(", возраст: ");
+        sb.append(getAge(getDateOfBirth(), getDateOfDeath()));
+        sb.append(", родители: ");
+        sb.append(getParentsStr());
+        sb.append(", дети: ");
+        sb.append(getChildrenStr());
+        return sb.toString();
     }
 
     public void setId(Integer id){
@@ -117,12 +130,24 @@ public class Member {
         return children;
     }
 
+    public String getChildrenStr() {
+        if (getChildren().isEmpty()) {
+            return NO;
+        } else return getChildren().toString();
+    }
+
     public void setChildren(List<Member> children) {
         this.children = children;
     }
 
     public List<Member> getParents() {
         return parents;
+    }
+
+    public String getParentsStr() {
+        if (this.getParents().isEmpty()) {
+            return NO;
+        } else return getParents().toString();
     }
 
     public void setParents(List<Member> parents) {

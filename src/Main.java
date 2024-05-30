@@ -8,5 +8,8 @@ public class Main {
 
         familyTree.addMember(tanya);
         familyTree.addMember(sergey);
+
+        System.out.println(tanya.getMemberInfo());
+        System.out.println(sergey.getMemberInfo());
     }
 }
