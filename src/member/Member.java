@@ -1,9 +1,12 @@
+package member;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member {
+public class Member implements Comparable<Member>{
     private Integer id;
     private String name;
     private String surname;
@@ -16,7 +19,7 @@ public class Member {
     private static final String NO = "нет";
 
     public Member(String name, String surname, Sex sex, LocalDate birth, LocalDate death, Member child,
-                   Member father, Member mother) {
+                  Member father, Member mother) {
         id = -1;
         this.setName(name);
         this.setSurname(surname);
@@ -43,7 +46,7 @@ public class Member {
     }
 
     public Member(String name, String surname, Sex sex, LocalDate birth, Member father, Member mother) {
-        this(name, surname, sex, birth, null, father, mother, null);
+        this(name, surname, sex, birth, null, null, father, mother);
     }
 
     //есть родители (хотя бы один)
@@ -81,17 +84,17 @@ public class Member {
         StringBuilder sb = new StringBuilder();
         sb.append("id: ");
         sb.append(getId());
-        sb.append(", имя: ");
+        sb.append("; имя: ");
         sb.append(getName());
-        sb.append(", фамилия: ");
+        sb.append("; фамилия: ");
         sb.append(getSurname());
-        sb.append(", пол: ");
+        sb.append("; пол: ");
         sb.append(getSex());
-        sb.append(", возраст: ");
+        sb.append("; возраст: ");
         sb.append(getAge(getDateOfBirth(), getDateOfDeath()));
-        sb.append(", родители: ");
+        sb.append("; родители: ");
         sb.append(getParentsStr());
-        sb.append(", дети: ");
+        sb.append("; дети: ");
         sb.append(getChildrenStr());
         return sb.toString();
     }
@@ -147,7 +150,18 @@ public class Member {
     public String getParentsStr() {
         if (this.getParents().isEmpty()) {
             return NO;
-        } else return getParents().toString();
+        } else {
+            return getParentsNames();
+        }
+    }
+
+    public String getParentsNames(){
+        StringBuilder sb = new StringBuilder();
+        for (Member mem : this.getParents()) {
+            sb.append(mem.getName());
+            sb.append(",");
+        }
+        return sb.toString();
     }
 
     public void setParents(List<Member> parents) {
@@ -168,5 +182,10 @@ public class Member {
 
     public void setDateOfDeath(LocalDate dateOfDeath) {
         this.dateOfDeath = dateOfDeath;
+    }
+
+    @Override
+    public int compareTo(Member m) {
+        return name.compareTo(m.name);
     }
 }

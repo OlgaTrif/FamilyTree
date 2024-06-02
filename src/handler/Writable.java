@@ -1,3 +1,5 @@
+package handler;
+
 import java.io.Serializable;
 
 public interface Writable {
