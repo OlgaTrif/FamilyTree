@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
         //String filePath = "src/tree.txt";
-        FamilyTree familyTree = new FamilyTree();
+        //FamilyTree familyTree = new FamilyTree();
         //Member tanya = new Member("Tanya", "Kruglova", Sex.Woman, LocalDate.of(1972,7,11));
         //Member sergey = new Member("Sergey", "Khrisanov", Sex.Man, LocalDate.of(1962,1,27));
         //Member oly = new Member("Olga", "Trifonova", Sex.Woman, LocalDate.of(1996,3,18), sergey, tanya);
@@ -36,11 +36,11 @@ public class Main {
         service.sortTreeByChildNumber();
         System.out.println("Сорт по к-ву детей:\n" + service.getMembersListInfo());
 
-        //save(familyTree, filePath);
+        //save(service.getFamilyTree(), filePath);
         //load(filePath);
     }
 
-    /*private static FamilyTree load(String filePath){
+    private static FamilyTree load(String filePath){
         Writable writable = new FileHandler();
         return (FamilyTree) writable.read(filePath);
     }
@@ -48,5 +48,5 @@ public class Main {
     private static void save(FamilyTree tree, String filePath){
         Writable writable = new FileHandler();
         writable.save(tree, filePath);
-    }*/
+    }
 }

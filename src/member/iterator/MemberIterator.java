@@ -5,12 +5,12 @@ import member.Member;
 import java.util.Iterator;
 import java.util.List;
 
-public class MemberIterator implements Iterator<Member> {
+public class MemberIterator<T> implements Iterator<T> {
 
     private int memId;
-    private List<Member> membersList;
+    private List<T> membersList;
 
-    public MemberIterator(List<Member> membersList) {
+    public MemberIterator(List<T> membersList) {
         this.membersList = membersList;
     }
 
@@ -20,11 +20,11 @@ public class MemberIterator implements Iterator<Member> {
     }
 
     @Override
-    public Member next() {
+    public T next() {
         return getMembersList().get(memId++);
     }
 
-    private List<Member> getMembersList() {
+    private List<T> getMembersList() {
         return membersList;
     }
 }

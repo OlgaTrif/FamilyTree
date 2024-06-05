@@ -6,18 +6,19 @@ import member.comparators.ChildNumberComparator;
 import member.comparators.MemberComparator;
 import member.iterator.MemberIterator;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class FamilyTree implements Iterable<Member>{
+public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, Iterable<E>{
     private int memberId;
-    private List<Member> membersList;
+    private List<E> membersList;
 
     public FamilyTree() {
         this.setMembersList(new ArrayList<>());
     }
 
     //добавить члена семьи
-    public void addMember(Member member) {
+    public void addMember(E member) {
         if (member != null && !getMembersList().contains(member)) {
             getMembersList().add(member);
             //увеличиваем id и сохраняем
@@ -35,16 +36,16 @@ public class FamilyTree implements Iterable<Member>{
         this.memberId = memberId;
     }
 
-    public List<Member> getMembersList() {
+    public List<E> getMembersList() {
         return membersList;
     }
 
-    public void setMembersList(List<Member> membersList) {
+    public void setMembersList(List<E> membersList) {
         this.membersList = membersList;
     }
 
     @Override
-    public Iterator<Member> iterator() {
+    public Iterator<E> iterator() {
         return new MemberIterator(membersList);
     }
 

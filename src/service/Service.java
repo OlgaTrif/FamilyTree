@@ -1,6 +1,7 @@
 package service;
 
 import family_tree.FamilyTree;
+import family_tree.FamilyTreeItem;
 import member.Member;
 import member.Sex;
 
@@ -20,7 +21,8 @@ public class Service {
 
     public String getMembersListInfo() {
         StringBuilder members = new StringBuilder();
-        for (Member mem : familyTree) {
+        for (Object obj : familyTree) {
+            Member mem = (Member) obj;
             members.append(mem.getMemberInfo());
             members.append("\n");
         }
@@ -41,5 +43,9 @@ public class Service {
 
     public void sortTreeByChildNumber(){
         familyTree.sortByChildNumer();
+    }
+
+    public FamilyTree getFamilyTree(){
+        return familyTree;
     }
 }

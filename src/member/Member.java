@@ -1,12 +1,14 @@
 package member;
 
+import family_tree.FamilyTreeItem;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member implements Comparable<Member>{
+public class Member implements Serializable, FamilyTreeItem<Member> {
     private Integer id;
     private String name;
     private String surname;
