@@ -1,6 +1,6 @@
-package member;
+package model.member;
 
-import family_tree.FamilyTreeItem;
+import model.family_tree.FamilyTreeItem;
 
 import java.io.Serializable;
 import java.time.LocalDate;

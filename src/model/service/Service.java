@@ -1,9 +1,8 @@
-package service;
+package model.service;
 
-import family_tree.FamilyTree;
-import family_tree.FamilyTreeItem;
-import member.Member;
-import member.Sex;
+import model.family_tree.FamilyTree;
+import model.member.Member;
+import model.member.Sex;
 
 import java.time.LocalDate;
 

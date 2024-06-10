@@ -1,6 +1,4 @@
-package member.iterator;
-
-import member.Member;
+package model.member.iterator;
 
 import java.util.Iterator;
 import java.util.List;

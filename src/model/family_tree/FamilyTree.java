@@ -1,10 +1,8 @@
-package family_tree;
+package model.family_tree;
 
-import member.comparators.BirthDayComparator;
-import member.Member;
-import member.comparators.ChildNumberComparator;
-import member.comparators.MemberComparator;
-import member.iterator.MemberIterator;
+import model.member.comparators.BirthDayComparator;
+import model.member.comparators.ChildNumberComparator;
+import model.member.iterator.MemberIterator;
 
 import java.io.Serializable;
 import java.util.*;
