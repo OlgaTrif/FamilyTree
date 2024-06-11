@@ -1,11 +1,13 @@
 package model.family_tree;
 
+import model.member.Member;
 import model.member.comparators.BirthDayComparator;
 import model.member.comparators.ChildNumberComparator;
 import model.member.iterator.MemberIterator;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, Iterable<E>{
     private int memberId;
@@ -44,7 +46,7 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
 
     @Override
     public Iterator<E> iterator() {
-        return new MemberIterator(membersList);
+        return new MemberIterator<>(membersList);
     }
 
     public void sortByName(){
@@ -56,10 +58,14 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
     }
 
     public void sortByBirthDay(){
-        Collections.sort(membersList, new BirthDayComparator());
+        Collections.sort(membersList, new BirthDayComparator<>());
     }
 
     public void sortByChildNumer(){
-        Collections.sort(membersList, new ChildNumberComparator());
+        Collections.sort(membersList, new ChildNumberComparator<>());
+    }
+
+    public E getMemberByName(String name){
+        return membersList.stream().filter(m -> m.getName().equals(name)).toList().getFirst();
     }
 }

@@ -30,17 +30,11 @@ public class Member implements Serializable, FamilyTreeItem<Member> {
         this.setDateOfDeath(death);
 
         setChildren(new ArrayList<>());
-        if (child != null) {
-            getChildren().add(child);
-        }
+        addChildren(child);
 
         setParents(new ArrayList<>());
-        if (father != null) {
-            getParents().add(father);
-        }
-        if (mother != null) {
-            getParents().add(mother);
-        }
+        addParent(father);
+        addParent(mother);
     }
 
     public Member(String name, String surname, Sex sex, LocalDate birth) {
@@ -189,5 +183,17 @@ public class Member implements Serializable, FamilyTreeItem<Member> {
     @Override
     public int compareTo(Member m) {
         return name.compareTo(m.name);
+    }
+
+    public <E extends FamilyTreeItem<E>> void addChildren(Member mem) {
+        if (mem != null) {
+            getChildren().add(mem);
+        }
+    }
+
+    private <E extends FamilyTreeItem<E>> void addParent(Member mem) {
+        if (mem != null) {
+            getParents().add(mem);
+        }
     }
 }
