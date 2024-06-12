@@ -7,7 +7,6 @@ import model.member.iterator.MemberIterator;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, Iterable<E>{
     private int memberId;
@@ -67,5 +66,16 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
 
     public E getMemberByName(String name){
         return membersList.stream().filter(m -> m.getName().equals(name)).toList().getFirst();
+    }
+
+    public E getMemberById(Integer id){
+        return membersList.stream().filter(m -> Objects.equals(m.getId(), id)).toList().getFirst();
+    }
+
+    public void addRelation(Member child, Member father, Member mother) {
+        father.addChildren(child);
+        mother.addChildren(child);
+        child.addParent(father);
+        child.addParent(mother);
     }
 }

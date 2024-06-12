@@ -1,8 +1,6 @@
 package model.service;
 
 import model.family_tree.FamilyTree;
-import model.handler.FileHandler;
-import model.handler.Writable;
 import model.member.Member;
 import model.member.Sex;
 
@@ -56,11 +54,15 @@ public class Service {
         return familyTree;
     }
 
-    public Member getMemberByName(String name){
-        return (Member) familyTree.getMemberByName(name);
+    public Member getMemberById(Integer id){
+        return (Member) familyTree.getMemberById(id);
     }
 
     public void setFamilyTree(FamilyTree tree) {
         familyTree = tree;
+    }
+
+    public void addRelation(Member child, Member father, Member mother) {
+        familyTree.addRelation(child, father, mother);
     }
 }

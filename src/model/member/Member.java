@@ -132,7 +132,7 @@ public class Member implements Serializable, FamilyTreeItem<Member> {
     public String getChildrenStr() {
         if (getChildren().isEmpty()) {
             return NO;
-        } else return getChildren().toString();
+        } else return getChildrenNames();
     }
 
     public void setChildren(List<Member> children) {
@@ -151,7 +151,16 @@ public class Member implements Serializable, FamilyTreeItem<Member> {
         }
     }
 
-    public String getParentsNames(){
+    public String getChildrenNames(){
+        StringBuilder sb = new StringBuilder();
+        for (Member mem : this.getChildren()) {
+            sb.append(mem.getName());
+            sb.append(",");
+        }
+        return sb.toString();
+    }
+
+    public String getParentsNames() {
         StringBuilder sb = new StringBuilder();
         for (Member mem : this.getParents()) {
             sb.append(mem.getName());
@@ -191,7 +200,7 @@ public class Member implements Serializable, FamilyTreeItem<Member> {
         }
     }
 
-    private <E extends FamilyTreeItem<E>> void addParent(Member mem) {
+    public <E extends FamilyTreeItem<E>> void addParent(Member mem) {
         if (mem != null) {
             getParents().add(mem);
         }

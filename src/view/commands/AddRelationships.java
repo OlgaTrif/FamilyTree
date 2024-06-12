@@ -10,6 +10,6 @@ public class AddRelationships extends Command{
 
     @Override
     public void execute(){
-        getConsoleUI().endProgram();
+        getConsoleUI().addRelationship();
     }
 }

@@ -30,8 +30,6 @@ public class ConsoleUI implements FamilyTreeView{
         loadFamilyTree();
         while (work) {
             System.out.println("Добро пожаловать!\n");
-            System.out.println("Дерево:\n");
-            getMemberList();
             System.out.println(mainMenu.menu());
             String choiceStr = scanner.nextLine();
             if (choiceStr.isEmpty()) {
@@ -48,12 +46,12 @@ public class ConsoleUI implements FamilyTreeView{
                 break;
             }
             mainMenu.execute(choise);
-            save(presenter.getFamilyTree(), filePath);
         }
     }
 
     public void endProgram() {
         work = false;
+        save(presenter.getFamilyTree(), filePath);
         System.out.println("До новых встреч!");
     }
 
@@ -74,6 +72,7 @@ public class ConsoleUI implements FamilyTreeView{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate dateOfBirth = LocalDate.parse(dateB, formatter);
         presenter.addMember(name, surname, sex, dateOfBirth);
+        save(presenter.getFamilyTree(), filePath);
     }
 
     public void getMemberList(){
@@ -90,9 +89,9 @@ public class ConsoleUI implements FamilyTreeView{
     
     public Member findMemberOrWarnIfNotFound(){
         String memberStr = scanner.nextLine();
-        Member member = memberStr != "" ? presenter.getMemberByName(memberStr) : null;
+        Member member = presenter.getMemberById(Integer.parseInt(memberStr));
         if (member == (null)) {
-            System.out.println("Член семьи не найден в древе. Добавьте его позже");
+            System.out.println("Член семьи не найден в древе. Добавьте его");
         }
         return member;
     }
@@ -112,16 +111,20 @@ public class ConsoleUI implements FamilyTreeView{
     }
 
     private void loadFamilyTree(){
+        //save(presenter.getFamilyTree(), filePath);
         FamilyTree tree = load(filePath);
         presenter.setFamilyTree(tree);
     }
 
-    public void addRelationships() {
+    public void addRelationship() {
+        getMemberList();
         System.out.println("Введите id ребёнка из списка");
         Member child = findMemberOrWarnIfNotFound();
         System.out.println("Введите id отца из списка");
         Member father = findMemberOrWarnIfNotFound();
         System.out.println("Введите id матери из списка");
         Member mother = findMemberOrWarnIfNotFound();
+        presenter.addRelation(child, father, mother);
+        save(presenter.getFamilyTree(), filePath);
     }
 }
