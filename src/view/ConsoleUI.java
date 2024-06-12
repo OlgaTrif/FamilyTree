@@ -16,6 +16,7 @@ public class ConsoleUI implements FamilyTreeView{
     private FamilyTreePresenter presenter;
     private boolean work;
     private MainMenu mainMenu;
+    private static final String filePath = "src/tree.txt";
 
     public ConsoleUI() {
         scanner = new Scanner(System.in);
@@ -26,13 +27,11 @@ public class ConsoleUI implements FamilyTreeView{
 
     @Override
     public void start() {
-        String filePath = "src/tree.txt";
-        save(presenter.getFamilyTree(), filePath);
-        presenter.setFamilyTree(load(filePath));
+        loadFamilyTree();
         while (work) {
             System.out.println("Добро пожаловать!\n");
-            presenter.getMemberListInfo();
-            //вывести имеющееся дерево
+            System.out.println("Дерево:\n");
+            getMemberList();
             System.out.println(mainMenu.menu());
             String choiceStr = scanner.nextLine();
             if (choiceStr.isEmpty()) {
@@ -49,7 +48,6 @@ public class ConsoleUI implements FamilyTreeView{
                 break;
             }
             mainMenu.execute(choise);
-            //сохранить изменения
             save(presenter.getFamilyTree(), filePath);
         }
     }
@@ -75,21 +73,7 @@ public class ConsoleUI implements FamilyTreeView{
         String dateB = scanner.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate dateOfBirth = LocalDate.parse(dateB, formatter);
-        System.out.println("Укажите дату смерти (ДД.ММ.ГГГГ). Если её нет, оставьте поле пустым");
-        String dateD = scanner.nextLine();
-        LocalDate dateOfDeath;
-        if ("".equals(dateD)){
-            dateOfDeath = null;
-        } else {
-            dateOfDeath = LocalDate.parse(dateB, formatter);
-        }
-        System.out.println("Введите имя ребёнка. Если нет, оставьте поле пустым");
-        Member child = findMemberOrWarnIfNotFound();
-        System.out.println("Введите имя отца. Если нет, оставьте поле пустым");
-        Member father = findMemberOrWarnIfNotFound();
-        System.out.println("Введите имя матери. Если нет, оставьте поле пустым");
-        Member mother = findMemberOrWarnIfNotFound();
-        presenter.addMember(name, surname, sex, dateOfBirth, dateOfDeath, child, father, mother);
+        presenter.addMember(name, surname, sex, dateOfBirth);
     }
 
     public void getMemberList(){
@@ -125,5 +109,19 @@ public class ConsoleUI implements FamilyTreeView{
     private static void save(FamilyTree tree, String filePath){
         Writable writable = new FileHandler();
         writable.save(tree, filePath);
+    }
+
+    private void loadFamilyTree(){
+        FamilyTree tree = load(filePath);
+        presenter.setFamilyTree(tree);
+    }
+
+    public void addRelationships() {
+        System.out.println("Введите id ребёнка из списка");
+        Member child = findMemberOrWarnIfNotFound();
+        System.out.println("Введите id отца из списка");
+        Member father = findMemberOrWarnIfNotFound();
+        System.out.println("Введите id матери из списка");
+        Member mother = findMemberOrWarnIfNotFound();
     }
 }
