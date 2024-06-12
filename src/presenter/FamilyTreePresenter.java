@@ -46,15 +46,11 @@ public class FamilyTreePresenter {
         return service.getMemberByName(name);
     }
 
-    public FamilyTree loadTree(String filePath){
-        return service.loadTree(filePath);
-    }
-
-    public void saveTree(FamilyTree tree, String filePath){
-        service.saveTree(tree, filePath);
-    }
-
     public FamilyTree getFamilyTree(){
         return service.getFamilyTree();
+    }
+
+    public void setFamilyTree(FamilyTree tree){
+        service.setFamilyTree(tree);
     }
 }

@@ -27,7 +27,8 @@ public class ConsoleUI implements FamilyTreeView{
     @Override
     public void start() {
         String filePath = "src/tree.txt";
-        FamilyTree tree = presenter.loadTree(filePath);
+        save(presenter.getFamilyTree(), filePath);
+        presenter.setFamilyTree(load(filePath));
         while (work) {
             System.out.println("Добро пожаловать!\n");
             presenter.getMemberListInfo();
@@ -49,7 +50,7 @@ public class ConsoleUI implements FamilyTreeView{
             }
             mainMenu.execute(choise);
             //сохранить изменения
-            presenter.saveTree(presenter.getFamilyTree(), filePath);
+            save(presenter.getFamilyTree(), filePath);
         }
     }
 
@@ -110,5 +111,19 @@ public class ConsoleUI implements FamilyTreeView{
             System.out.println("Член семьи не найден в древе. Добавьте его позже");
         }
         return member;
+    }
+
+    private static FamilyTree load(String filePath){
+        Writable writable = new FileHandler();
+        try {
+            return (FamilyTree) writable.read(filePath);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void save(FamilyTree tree, String filePath){
+        Writable writable = new FileHandler();
+        writable.save(tree, filePath);
     }
 }

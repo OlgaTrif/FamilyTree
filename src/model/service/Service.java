@@ -1,10 +1,6 @@
 package model.service;
 
 import model.family_tree.FamilyTree;
-import model.family_tree.TreeReader;
-import model.family_tree.TreeWriter;
-import model.handler.FileHandler;
-import model.handler.Writable;
 import model.member.Member;
 import model.member.Sex;
 
@@ -62,11 +58,7 @@ public class Service {
         return (Member) familyTree.getMemberByName(name);
     }
 
-    public FamilyTree loadTree(String filePath){
-        return TreeReader.load(filePath);
-    }
-
-    public void saveTree(FamilyTree tree, String filePath){
-        TreeWriter.save(tree, filePath);
+    public void setFamilyTree(FamilyTree tree) {
+        familyTree = tree;
     }
 }
