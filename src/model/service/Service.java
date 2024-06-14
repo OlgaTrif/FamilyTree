@@ -7,7 +7,7 @@ import model.member.Sex;
 import java.time.LocalDate;
 
 public class Service {
-    FamilyTree familyTree;
+    FamilyTree<Member> familyTree;
 
     public Service() {
         familyTree = new FamilyTree<>();
@@ -26,8 +26,7 @@ public class Service {
 
     public String getMembersListInfo() {
         StringBuilder members = new StringBuilder();
-        for (Object obj : familyTree) {
-            Member mem = (Member) obj;
+        for (Member mem : familyTree) {
             members.append(mem.getMemberInfo());
             members.append("\n");
         }
@@ -50,7 +49,7 @@ public class Service {
         familyTree.sortByChildNumer();
     }
 
-    public FamilyTree getFamilyTree(){
+    public FamilyTree<Member> getFamilyTree(){
         return familyTree;
     }
 
@@ -58,7 +57,7 @@ public class Service {
         return (Member) familyTree.getMemberById(id);
     }
 
-    public void setFamilyTree(FamilyTree tree) {
+    public void setFamilyTree(FamilyTree<Member> tree) {
         familyTree = tree;
     }
 

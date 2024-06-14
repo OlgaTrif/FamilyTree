@@ -46,11 +46,11 @@ public class FamilyTreePresenter {
         return service.getMemberById(id);
     }
 
-    public FamilyTree getFamilyTree(){
+    public FamilyTree<Member> getFamilyTree(){
         return service.getFamilyTree();
     }
 
-    public void setFamilyTree(FamilyTree tree){
+    public void setFamilyTree(FamilyTree<Member> tree){
         service.setFamilyTree(tree);
     }
 
