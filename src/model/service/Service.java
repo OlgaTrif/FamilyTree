@@ -62,7 +62,7 @@ public class Service {
         familyTree = tree;
     }
 
-    public void addRelation(Member child, Member father, Member mother) {
-        familyTree.addRelation(child, father, mother);
+    public void addRelation(Integer childId, Integer fatherId, Integer motherId) {
+        familyTree.addRelation(childId, fatherId, motherId);
     }
 }

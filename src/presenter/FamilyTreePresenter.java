@@ -54,7 +54,7 @@ public class FamilyTreePresenter {
         service.setFamilyTree(tree);
     }
 
-    public void addRelation(Member child, Member father, Member mother) {
-        service.addRelation(child, father, mother);
+    public void addRelation(Integer childId, Integer fatherId, Integer motherId) {
+        service.addRelation(childId, fatherId, motherId);
     }
 }

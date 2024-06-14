@@ -3,7 +3,6 @@ package view;
 import model.family_tree.FamilyTree;
 import model.handler.FileHandler;
 import model.handler.Writable;
-import model.member.Member;
 import model.member.Sex;
 import presenter.FamilyTreePresenter;
 
@@ -87,13 +86,9 @@ public class ConsoleUI implements FamilyTreeView{
         presenter.sortByName();
     }
     
-    public Member findMemberOrWarnIfNotFound(){
+    public Integer convertInputStrToInteger(){
         String memberStr = scanner.nextLine();
-        Member member = presenter.getMemberById(Integer.parseInt(memberStr));
-        if (member == (null)) {
-            System.out.println("Член семьи не найден в древе. Добавьте его");
-        }
-        return member;
+        return Integer.parseInt(memberStr);
     }
 
     private static FamilyTree load(String filePath){
@@ -119,12 +114,12 @@ public class ConsoleUI implements FamilyTreeView{
     public void addRelationship() {
         getMemberList();
         System.out.println("Введите id ребёнка из списка");
-        Member child = findMemberOrWarnIfNotFound();
+        Integer childId = convertInputStrToInteger();
         System.out.println("Введите id отца из списка");
-        Member father = findMemberOrWarnIfNotFound();
+        Integer fatherId = convertInputStrToInteger();
         System.out.println("Введите id матери из списка");
-        Member mother = findMemberOrWarnIfNotFound();
-        presenter.addRelation(child, father, mother);
+        Integer motherId = convertInputStrToInteger();
+        presenter.addRelation(childId, fatherId, motherId);
         save(presenter.getFamilyTree(), filePath);
     }
 }

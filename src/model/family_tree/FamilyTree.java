@@ -72,10 +72,13 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
         return membersList.stream().filter(m -> Objects.equals(m.getId(), id)).toList().getFirst();
     }
 
-    public void addRelation(Member child, Member father, Member mother) {
-        father.addChildren(child);
-        mother.addChildren(child);
-        child.addParent(father);
-        child.addParent(mother);
+    public void addRelation(Integer childId, Integer fatherId, Integer motherId) {
+        Member childMem = (Member) getMemberById(childId);
+        Member fatherMem = (Member) getMemberById(fatherId);
+        Member motherMem = (Member) getMemberById(motherId);
+        fatherMem.addChildren(childMem);
+        motherMem.addChildren(childMem);
+        childMem.addParent(fatherMem);
+        childMem.addParent(motherMem);
     }
 }
