@@ -6,7 +6,6 @@ import model.handler.TreeReader;
 import model.handler.TreeWriter;
 import model.member.Member;
 import model.member.Sex;
-import view.ConsoleUI;
 
 import java.time.LocalDate;
 
