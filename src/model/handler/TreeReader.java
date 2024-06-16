@@ -1,5 +1,5 @@
 package model.handler;
 
 public interface TreeReader{
-    public Object read(String filePath);
+    Object read(String filePath);
 }
