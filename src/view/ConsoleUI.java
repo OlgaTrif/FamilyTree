@@ -94,4 +94,12 @@ public class ConsoleUI implements FamilyTreeView{
         Integer motherId = convertInputStrToInteger();
         presenter.addRelation(childId, fatherId, motherId);
     }
+
+    public void removeMemeber(){
+        getMemberList();
+        System.out.println("Введите id кого нужно удалить");
+        Integer id = Integer.parseInt(scanner.nextLine());
+        presenter.removeMember(id);
+        System.out.println("Член успешно удалён из дерева");
+    }
 }

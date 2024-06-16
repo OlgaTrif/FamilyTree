@@ -96,4 +96,8 @@ public class Service {
             throw new RuntimeException(e);
         }
     }
+
+    public void removeMember(Integer memberId){
+        familyTree.removeMember(memberId);
+    }
 }

@@ -57,4 +57,8 @@ public class FamilyTreePresenter {
     public void addRelation(Integer childId, Integer fatherId, Integer motherId) {
         service.addRelation(childId, fatherId, motherId);
     }
+
+    public void removeMember(Integer memberId){
+        service.removeMember(memberId);
+    }
 }

@@ -81,4 +81,11 @@ public class FamilyTree<E extends FamilyTreeItem<E>> implements Serializable, It
         childMem.addParent(fatherMem);
         childMem.addParent(motherMem);
     }
+
+    public void removeMember(Integer memberId){
+        E member = getMemberById(memberId);
+        getMembersList().remove(member);
+        //увеличиваем id и сохраняем
+        setMemberId(getMemberId() - 1);
+    }
 }

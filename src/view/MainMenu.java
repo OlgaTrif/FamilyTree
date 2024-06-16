@@ -15,6 +15,7 @@ public class MainMenu {
         commands.add(new GetMemberList(consoleUI));
         commands.add(new SortByAge(consoleUI));
         commands.add(new SortByName(consoleUI));
+        commands.add(new RemoveMember(consoleUI));
         commands.add(new EndProgram(consoleUI));
     }
 
