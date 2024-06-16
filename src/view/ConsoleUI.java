@@ -1,9 +1,5 @@
 package view;
 
-import model.family_tree.FamilyTree;
-import model.handler.FileHandler;
-import model.handler.Writable;
-import model.member.Member;
 import model.member.Sex;
 import presenter.FamilyTreePresenter;
 
@@ -16,7 +12,6 @@ public class ConsoleUI implements FamilyTreeView{
     private final FamilyTreePresenter presenter;
     private boolean work;
     private final MainMenu mainMenu;
-    private static final String filePath = "src/tree.txt";
 
     public ConsoleUI() {
         scanner = new Scanner(System.in);
@@ -27,7 +22,6 @@ public class ConsoleUI implements FamilyTreeView{
 
     @Override
     public void start() {
-        loadFamilyTree();
         while (work) {
             System.out.println("Добро пожаловать!\n");
             System.out.println(mainMenu.menu());
@@ -51,7 +45,6 @@ public class ConsoleUI implements FamilyTreeView{
 
     public void endProgram() {
         work = false;
-        save(presenter.getFamilyTree());
         System.out.println("До новых встреч!");
     }
 
@@ -72,7 +65,6 @@ public class ConsoleUI implements FamilyTreeView{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate dateOfBirth = LocalDate.parse(dateB, formatter);
         presenter.addMember(name, surname, sex, dateOfBirth);
-        save(presenter.getFamilyTree());
     }
 
     public void getMemberList(){
@@ -92,26 +84,6 @@ public class ConsoleUI implements FamilyTreeView{
         return Integer.parseInt(memberStr);
     }
 
-    private static FamilyTree load(){
-        Writable writable = new FileHandler();
-        try {
-            return (FamilyTree) writable.read(ConsoleUI.filePath);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void save(FamilyTree tree){
-        Writable writable = new FileHandler();
-        writable.save(tree, ConsoleUI.filePath);
-    }
-
-    private void loadFamilyTree(){
-        //save(presenter.getFamilyTree(), filePath);
-        FamilyTree<Member> tree = load();
-        presenter.setFamilyTree(tree);
-    }
-
     public void addRelationship() {
         getMemberList();
         System.out.println("Введите id ребёнка из списка");
@@ -121,6 +93,5 @@ public class ConsoleUI implements FamilyTreeView{
         System.out.println("Введите id матери из списка");
         Integer motherId = convertInputStrToInteger();
         presenter.addRelation(childId, fatherId, motherId);
-        save(presenter.getFamilyTree());
     }
 }

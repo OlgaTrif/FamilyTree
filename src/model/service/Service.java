@@ -1,27 +1,39 @@
 package model.service;
 
 import model.family_tree.FamilyTree;
+import model.handler.FileHandler;
+import model.handler.TreeReader;
+import model.handler.TreeWriter;
 import model.member.Member;
 import model.member.Sex;
+import view.ConsoleUI;
 
 import java.time.LocalDate;
 
 public class Service {
     FamilyTree<Member> familyTree;
+    private static final String filePath = "src/tree.txt";
 
     public Service() {
-        familyTree = new FamilyTree<>();
+        try {
+            FamilyTree<Member> tree = load();
+            setFamilyTree(tree);
+        } catch (Exception e) {
+            familyTree = new FamilyTree<>();
+        }
     }
 
     public void addMember(String name, String surname, Sex sex, LocalDate birth) {
         Member member = new Member(name, surname, sex, birth);
         familyTree.addMember(member);
+        save(familyTree);
     }
 
     public void addMember(String name, String surname, Sex sex, LocalDate birth, LocalDate death,
                           Member child, Member father, Member mother) {
         Member member = new Member(name, surname, sex, birth, death, child, father, mother);
         familyTree.addMember(member);
+        save(familyTree);
     }
 
     public String getMembersListInfo() {
@@ -35,18 +47,22 @@ public class Service {
 
     public void sortTreeByName(){
         familyTree.sortByName();
+        save(familyTree);
     }
 
     public void sortTreeByNameDesc(){
         familyTree.sortByNameDesc();
+        save(familyTree);
     }
 
     public void sortTreeByBirthDate(){
         familyTree.sortByBirthDay();
+        save(familyTree);
     }
 
     public void sortTreeByChildNumber(){
         familyTree.sortByChildNumer();
+        save(familyTree);
     }
 
     public FamilyTree<Member> getFamilyTree(){
@@ -59,9 +75,25 @@ public class Service {
 
     public void setFamilyTree(FamilyTree<Member> tree) {
         familyTree = tree;
+        save(familyTree);
     }
 
     public void addRelation(Integer childId, Integer fatherId, Integer motherId) {
         familyTree.addRelation(childId, fatherId, motherId);
+        save(familyTree);
+    }
+
+    private static void save(FamilyTree<Member> tree){
+        TreeWriter writer = new FileHandler();
+        writer.write(tree, filePath);
+    }
+
+    private static FamilyTree<Member> load(){
+        TreeReader reader = new FileHandler();
+        try {
+            return (FamilyTree) reader.read(filePath);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

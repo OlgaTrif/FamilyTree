@@ -2,9 +2,9 @@ package model.handler;
 
 import java.io.*;
 
-public class FileHandler implements Writable {
+public class FileHandler implements TreeReader, TreeWriter {
     @Override
-    public boolean save(Serializable serializable, String filePath){
+    public boolean write(Serializable serializable, String filePath){
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filePath))){
             objectOutputStream.writeObject(serializable);
             return true;
