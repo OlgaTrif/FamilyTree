@@ -1,9 +1,10 @@
 package model.service;
 
 import model.family_tree.FamilyTree;
-import model.handler.FileHandler;
-import model.handler.TreeReader;
-import model.handler.TreeWriter;
+import model.reader.TreeReader;
+import model.reader.TreeReaderable;
+import model.writer.TreeWriter;
+import model.writer.TreeWriterable;
 import model.member.Member;
 import model.member.Sex;
 
@@ -83,12 +84,12 @@ public class Service {
     }
 
     private static void save(FamilyTree<Member> tree){
-        TreeWriter writer = new FileHandler();
+        TreeWriterable writer = new TreeWriter();
         writer.write(tree, filePath);
     }
 
     private static FamilyTree<Member> load(){
-        TreeReader reader = new FileHandler();
+        TreeReaderable reader = new TreeReader();
         try {
             return (FamilyTree) reader.read(filePath);
         } catch (Exception e) {
